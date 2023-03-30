@@ -1,5 +1,5 @@
 
-function Tree() {
+export default function Tree() {
     let root = null;
 
     const buildFrom = (arr, node = root) => {
@@ -225,16 +225,19 @@ function Tree() {
         }
     }
 
-    const levelOrder = (f = console.log, node = root) => {
+    const levelOrder = (f = null, node = root, arr = []) => {
+        if (!f) f = (node) => arr.push(node.value);
         if (node == null) return;
         const queue = [node];
 
         while (queue.length) {
-            currentNode = queue.shift();
-            f(currentNode.value);
+            const currentNode = queue.shift();
+            f(currentNode);
             if (currentNode.left) queue.push(currentNode.left);
             if (currentNode.right) queue.push(currentNode.right);
         }
+
+        return arr;
     }
 
     // On visite le noeud actuel,
@@ -243,7 +246,7 @@ function Tree() {
     // on passe au noeud suivant de la queue
 
     const rebalance = () => {
-        sortedValues = inorder();
+        const sortedValues = inorder();
         root = null;
 
         balancedFrom(sortedValues);
@@ -257,6 +260,29 @@ function Tree() {
     //  Fonction par défaut : retourner un tableau avec toutes les valeurs de l'arbre
     //  Comment renvoyer un tableau avec toutes les valeurs de l'arbre ?
     //  
+
+    const isBalanced = (node = root) => {
+
+        if (node === null) {
+            return true;
+        }
+        
+        const leftHeight = height(node.left);
+        const rightHeight = height(node.right);
+
+        if (Math.abs(leftHeight - rightHeight) <= 1
+            && isBalanced(node.left) && isBalanced(node.right)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Récupérer la hauteur du sous arbre de droite et du sous-arbre de gauche
+    // Si leur hauteur est différente de plus d'un noeud
+    // retourner faux
+    // sinon
+    // retourner vrai
 
     const prettyPrint = (node = root, prefix = '', isLeft = true) => {
 
@@ -281,23 +307,16 @@ function Tree() {
         insert,
         deleteNode, 
         find, 
+        depth,
         inorder, 
         preorder,
         postorder, 
         levelOrder, 
         rebalance, 
+        isBalanced, 
         height,
         get root() {
             return root;
         }
     };
 }
-
-const arr = [1, 4, 3, 6, 5, 2, 8, 7, 9, 10, 11, 12];
-const myTree = Tree();
-myTree.buildFrom(arr);
-myTree.prettyPrint();
-myTree.rebalance();
-myTree.insert(1);
-console.log(myTree.height());
-myTree.prettyPrint();

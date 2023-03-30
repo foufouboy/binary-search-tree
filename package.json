@@ -1,0 +1,21 @@
+{
+  "type": "module", 
+  "name": "binary-search-tree",
+  "version": "1.0.0",
+  "description": "A BST implementation for TOP project",
+  "main": "binary-tree.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/foufouboy/binary-search-tree.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/foufouboy/binary-search-tree/issues"
+  },
+  "homepage": "https://github.com/foufouboy/binary-search-tree#readme"
+}
